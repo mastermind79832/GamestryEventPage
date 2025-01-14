@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheet Data Fetch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fetch Data from Google Sheet</h1>
+    <label for="id">Enter ID:</label>
+    <input type="text" id="id" placeholder="Enter ID">
+    <button onclick="fetchData()">Get Data</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        async function fetchData() {
+            const id = document.getElementById("id").value;
+            const resultDiv = document.getElementById("result");
+            resultDiv.textContent = "Fetching data...";
+
+            try {
+                const response = await fetch(`https://script.google.com/macros/s/AKfycbzEovIVL9JkcBH1nm-2I319wIX8lcdlNcVwjYtKjr80Oul1amvvLcGlluVidrAr_VaoSA/exec?id=${id}`);
+                const data = await response.json();
+
+                if (Object.keys(data).length === 0) {
+                    resultDiv.textContent = "No data found for this ID.";
+                } else {
+                    resultDiv.innerHTML = `
+                        <p><b>ID:</b> ${data.ID}</p>
+                        <p><b>Name:</b> ${data.Name}</p>
+                        <p><b>Game Played:</b> ${data.GamePlayed}</p>
+                        <p><b>Time:</b> ${data.Time}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.textContent = "Error fetching data. Please try again.";
+            }
+        }
+    </script>
+</body>
+</html>
