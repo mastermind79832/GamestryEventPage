@@ -31,7 +31,7 @@
             resultDiv.textContent = "Fetching data...";
 
             try {
-                const response = await fetch(`https://script.google.com/macros/s/AKfycbxCqs4WdOydQQ4JzW_5_GgN166y-uvUnZ0Lp9Z_LCtPzOEuY38iOMMTYlNLvDldm8xLhQ/exec?id=${id}`,{mode: 'no-cors'});
+                const response = await fetch(`https://script.google.com/macros/s/AKfycbxCqs4WdOydQQ4JzW_5_GgN166y-uvUnZ0Lp9Z_LCtPzOEuY38iOMMTYlNLvDldm8xLhQ/exec?id=${id}`,{mode: 'cors'});
                 const data = await response.json();
 
                 if (Object.keys(data).length === 0) {
